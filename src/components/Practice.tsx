@@ -5,11 +5,12 @@ import { challenges, getTopic } from "@/data/course";
 
 type Props = {
   solvedIds: string[];
+  initialChallengeId: string;
   onSolved: (challengeId: string) => void;
 };
 
-export default function Practice({ solvedIds, onSolved }: Props) {
-  const [selectedId, setSelectedId] = useState(challenges[0].id);
+export default function Practice({ solvedIds, initialChallengeId, onSolved }: Props) {
+  const [selectedId, setSelectedId] = useState(initialChallengeId);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [hintLevel, setHintLevel] = useState(0);

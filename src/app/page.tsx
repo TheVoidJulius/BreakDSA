@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { CSSProperties } from "react";
 import Learn from "@/components/Learn";
+import Mascot from "@/components/Mascot";
 import Practice from "@/components/Practice";
 import Tutor from "@/components/Tutor";
 import Visualizer from "@/components/Visualizer";
@@ -104,7 +105,13 @@ export default function Home() {
           />
         );
       case "practice":
-        return <Practice solvedIds={progress.solvedChallenges} onSolved={completeChallenge} />;
+        return (
+          <Practice
+            solvedIds={progress.solvedChallenges}
+            initialChallengeId={challenges.find(({ id }) => !progress.solvedChallenges.includes(id))?.id ?? challenges[0].id}
+            onSolved={completeChallenge}
+          />
+        );
       case "visualize":
         return <Visualizer />;
       case "tutor":
@@ -126,6 +133,7 @@ export default function Home() {
             totalChallenges={challenges.length}
             streak={streak}
             totalDone={totalDone}
+            nextChallenge={challenges.find(({ id }) => !progress.solvedChallenges.includes(id)) ?? challenges[0]}
             onNavigate={switchView}
           />
         );
@@ -193,6 +201,7 @@ function Overview({
   totalChallenges,
   streak,
   totalDone,
+  nextChallenge,
   onNavigate,
 }: {
   completedTopics: number;
@@ -201,6 +210,7 @@ function Overview({
   totalChallenges: number;
   streak: number;
   totalDone: number;
+  nextChallenge: (typeof challenges)[number];
   onNavigate: (view: View) => void;
 }) {
   const progressPercent = Math.round(((completedTopics + solvedChallenges) / (totalTopics + totalChallenges)) * 100);
@@ -208,17 +218,16 @@ function Overview({
     <section className="view-section overview-view" aria-labelledby="overview-title">
       <div className="welcome-strip">
         <div>
-          <p className="section-kicker">YOUR DSA WORKSPACE</p>
-          <h1 id="overview-title">Understand the why.<br /><span>Then solve the how.</span></h1>
-          <p className="section-description">A structured place to learn concepts, build problem-solving habits, and see algorithms in motion.</p>
+          <p className="section-kicker">PLAYER ONE · DSA ARCADE</p>
+          <h1 id="overview-title">Big problems.<br /><span>Small wins.</span></h1>
+          <p className="section-description">Learn the move, try the challenge, and watch your ideas click into place.</p>
           <button className="button button-primary welcome-action" type="button" onClick={() => onNavigate("learn")}>
-            Continue learning <span aria-hidden="true">→</span>
+            Start a learning run <span aria-hidden="true">→</span>
           </button>
         </div>
         <div className="welcome-mark" aria-hidden="true">
           <span className="orbit orbit-one" /><span className="orbit orbit-two" />
-          <span className="welcome-core">B<span>.</span></span>
-          <span className="orbit-dot" />
+          <Mascot completedTopics={completedTopics} solvedChallenges={solvedChallenges} streak={streak} />
         </div>
       </div>
 
@@ -229,8 +238,20 @@ function Overview({
         <StatCard label="Learning progress" value={`${progressPercent}%`} detail={`${totalDone} milestones reached`} />
       </div>
 
+      <div className="daily-quest">
+        <div className="quest-stamp" aria-hidden="true">GO!</div>
+        <div className="quest-copy">
+          <span className="quest-eyebrow">YOUR NEXT MINI-MISSION</span>
+          <strong>Up next: {nextChallenge.title}</strong>
+          <span>A quick {nextChallenge.difficulty.toLowerCase()} challenge. Pick it up and keep your streak moving.</span>
+        </div>
+        <button className="button quest-action" type="button" onClick={() => onNavigate("practice")}>
+          Enter practice <span aria-hidden="true">↗</span>
+        </button>
+      </div>
+
       <div className="section-row-heading">
-        <div><p className="section-kicker">PICK UP WHERE YOU LEFT OFF</p><h2>Choose your next step</h2></div>
+        <div><p className="section-kicker">CHOOSE YOUR NEXT LEVEL</p><h2>How do you want to learn?</h2></div>
         <button className="text-link" type="button" onClick={() => onNavigate("progress")}>View study record <span aria-hidden="true">→</span></button>
       </div>
       <div className="feature-grid">

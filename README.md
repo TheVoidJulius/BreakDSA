@@ -1,67 +1,121 @@
-# BreakDSA
+<div align="center">
 
-BreakDSA brings DSA lessons, deliberate practice, visual explanations, and a course-grounded tutor into one study workspace.
+# 🎮 BreakDSA
 
-## What’s included
+### Big problems. Small wins.
 
-- **Learn:** six concise lessons covering complexity, arrays and hash maps, stacks and queues, binary search, sorting, and linked lists, with private per-topic notes.
-- **Practice:** six original multiple-choice challenges with progressive hints, explanations, and completion tracking.
-- **Visualize:** step, play, pause, adjust speed, and reset bubble sort, binary search, stack, and queue visualizations. The app does not execute user-submitted code.
-- **Tutor:** a streaming AI tutor grounded in BreakDSA course notes, with local course-grounded replies when no AI key is configured.
-- **Progress:** completed lessons, solved challenges, private study notes, and study streak stored locally in the current browser.
+**A colorful little arcade for learning the ideas behind data structures and algorithms.**
 
-This is an early, usable product slice—not a claim of a complete DSA curriculum. There are no accounts, cloud sync, code judge, or saved tutor conversations yet.
+Learn a concept. Take a shot at a challenge. Watch an algorithm think out loud.
+Bring questions to your study buddy, Byte.
 
-## Requirements
+<br />
 
-- Node.js 20.9 or later
-- Yarn 1 (Classic)
-- Optional: a Groq API key for live AI tutoring
+![Next.js](https://img.shields.io/badge/Next.js-15-171923?style=for-the-badge&logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-19-315edb?style=for-the-badge&logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-ef668e?style=for-the-badge&logo=typescript&logoColor=white)
 
-## Run locally
+**Six lessons · Six practice questions · Four interactive visualizers · One encouraging robot**
 
-From the repository root:
+</div>
+
+---
+
+## 🕹️ Welcome to the arcade
+
+BreakDSA turns a big, intimidating subject into a series of smaller things you can actually do. It brings lessons, practice, algorithm visualizations, personal notes, progress tracking, and a course-grounded tutor together in one browser-based study space.
+
+It’s designed to make it easier to **start**, stay curious, and notice your progress—not to bury you in a giant list of topics.
+
+```text
+       .---------------------------.
+       |  BREAKDSA                 |
+       |                           |
+       |    LEARN  ->  TRY  ->  SEE |
+       |       \       |      /    |
+       |        \      v     /     |
+       |          LEVEL UP!         |
+       '---------------------------'
+```
+
+## ✨ Pick your next level
+
+| Arcade station | What you can do |
+|---|---|
+| 📚 **Learn** | Explore six concise lessons: complexity, arrays and hash maps, stacks and queues, binary search, sorting, and linked lists. Search and filter the library, keep notes for each topic, and mark lessons as learned. |
+| 🎯 **Practice** | Work through six original multiple-choice DSA questions. Reveal hints one at a time, check your answer, and learn from the explanation. The dashboard mini-mission points to your next unsolved question. |
+| 🔬 **Visualize** | Play through bubble sort, binary search, a stack, and a queue. Step or play the animation, adjust its speed, scrub the timeline, and reset whenever you want. |
+| 💬 **Ask Byte’s study partner** | Ask a question about a selected lesson. With a Groq API key, replies stream from the configured model; without one, the app provides a deterministic answer from local course notes. |
+| 🏆 **Study record** | See lessons completed, questions solved, your study streak, and your overall progress. Your record stays in this browser. |
+
+### Meet Byte 🤖
+
+Byte is the cheerful little robot hanging out on the overview screen. Tap the character for a fresh boost, check out the next mini-mission, and jump straight into the next unsolved challenge. Byte’s expressions are there for encouragement—not to grade your code.
+
+## 🚀 Start a run
+
+### You’ll need
+
+- [Node.js](https://nodejs.org/) 20.9 or later
+- [Yarn Classic](https://classic.yarnpkg.com/) 1.x
+- A [Groq API key](https://console.groq.com/keys) only if you want live AI tutoring
+
+### Power up locally
 
 ```powershell
 yarn install
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Without an API key the tutor uses the local lesson notes; the rest of the app works offline. This mode is deterministic course content, not a local AI model.
+Open [http://localhost:3000](http://localhost:3000) and choose a station. The lessons, practice set, visualizers, and local progress work without an AI key.
 
-## Enable live AI tutoring
+### Optional: activate live tutoring
 
-BreakDSA uses Groq’s OpenAI-compatible chat-completions API and defaults to **[`openai/gpt-oss-20b`](https://console.groq.com/docs/model/openai/gpt-oss-20b)**, a model documented by Groq for reasoning and coding workloads.
-
-1. Create a Groq account and generate an API key at [console.groq.com/keys](https://console.groq.com/keys).
-2. Copy the example environment file:
+1. Make a copy of the example environment file:
 
    ```powershell
    Copy-Item .env.example .env.local
    ```
 
-3. Add the key to `.env.local`:
+2. Add your Groq key to `.env.local`:
 
    ```dotenv
    GROQ_API_KEY=your-server-side-key
    GROQ_MODEL=openai/gpt-oss-20b
    ```
 
-4. Restart the development server and open **AI tutor**. After a response, the tutor status indicates when it used Groq.
+3. Restart the development server and open **AI tutor**.
 
-The Groq model ID can be changed to another model available to your account. Free-tier model availability, rate limits, and quotas can vary by model and account and may change; check the current [Groq model catalog](https://console.groq.com/docs/models) and [rate limits](https://console.groq.com/docs/rate-limits). A free tier is not an unlimited service guarantee.
+The default model is Groq’s [`openai/gpt-oss-20b`](https://console.groq.com/docs/model/openai/gpt-oss-20b). Model access and free-tier quotas can vary; check Groq’s [model catalog](https://console.groq.com/docs/models) and [rate limits](https://console.groq.com/docs/rate-limits).
 
-The key is only read by the Next.js server. Do not expose it in browser code, use a `NEXT_PUBLIC_` prefix, or commit `.env.local`. Groq says inference inputs and outputs are not retained by default, but may be temporarily logged for reliability or abuse investigations for up to 30 days. Avoid entering sensitive or confidential information. See [Groq data controls](https://console.groq.com/docs/your-data).
+> 🔐 Keep `.env.local` private. The key is used on the server and must never be exposed in browser code or committed. Groq says inference data is not retained by default, but may be temporarily logged for reliability or abuse investigations for up to 30 days. Don’t send sensitive information; see [Groq data controls](https://console.groq.com/docs/your-data).
 
-## Use BreakDSA
+## 🧭 How a learning run works
 
-- Choose **Learn** to browse or search course notes, add private notes to a topic, and mark a lesson learned when you finish it.
-- Choose **Practice** to work through a question. Request hints one at a time, select an answer, and check it to see the explanation.
-- Choose **Visualize** to select a structure or algorithm. Use the timeline, speed menu, step, play, pause, or reset controls.
-- Choose **AI tutor** to ask about a selected lesson. If no Groq key is configured, answers come from the local course notes.
-- Open **Study record** to see completed lessons, solved challenges, and your current study streak. Progress is kept in this browser only.
+1. **Pick a lesson** and build a mental model of one concept.
+2. **Write a note** about the part you want to remember.
+3. **Try the matching question**—use a hint if you need a nudge.
+4. **Watch the visualization** to see how values or pointers change.
+5. **Ask the tutor** for another explanation or example.
+6. **Come back tomorrow** and keep your streak alive.
 
-## Build and validate
+There’s no timer, ranking, or punishment for getting something wrong. The aim is to build understanding one useful step at a time.
+
+## 🎨 The look and feel
+
+BreakDSA’s interface takes inspiration from playful illustrated arcade and event pages: sunny yellow, electric blue, bubblegum pink, chunky outlines, sticker-like panels, dotted backdrops, and bouncy details.
+
+The home screen acts like a cabinet front: progress indicators, Byte, and a next-step mission invite you in. Each study area is still organized around doing the work—reading, answering, tracing, or asking—rather than navigating a maze of decoration. Motion respects the system’s reduced-motion preference.
+
+## 🧰 Under the hood
+
+- **Next.js 15** App Router, **React 19**, and **TypeScript**
+- Local lesson and challenge content in `src/data/course.ts`
+- Browser `localStorage` for progress, notes, and study dates
+- A streaming Next.js tutor route with Groq integration and a local lesson-notes fallback
+- No accounts, cloud sync, user-code execution, or code judge
+
+Run the checks and production server:
 
 ```powershell
 yarn typecheck
@@ -69,4 +123,20 @@ yarn build
 yarn start
 ```
 
-The tutor endpoint is a Next.js server route and streams responses. For hosting, use a Node.js host that supports Next.js route handlers and streaming; set `GROQ_API_KEY` and optionally `GROQ_MODEL` as server-side environment variables in the host’s secret manager. This app has no user authentication or distributed rate limiting yet, so configure host-level API rate limits before making a public deployment.
+For hosting, use a Node.js host that supports Next.js route handlers and streaming. Add `GROQ_API_KEY` and, optionally, `GROQ_MODEL` through the host’s server-side secret settings. There is no user authentication or distributed rate limiting yet; configure host-level limits before making the tutor endpoint public.
+
+## 📦 Scope, sources, and what’s next
+
+This repository currently includes **six original practice questions**, not the 500-question Striver Sheet. It does not reproduce Striver Sheet problem statements or editorials. A future expanded question catalog can link to original problem sources while keeping BreakDSA’s notes and learning material original, unless reuse permission or a suitable license is available.
+
+This is a usable learning workspace and a growing project—not a complete DSA curriculum. Accounts, cloud-synced progress, saved tutor conversations, a code judge, and a large problem bank are not included yet.
+
+---
+
+<div align="center">
+
+### Made for the next small win. 💛
+
+**Think it. Trace it. Solve it.**
+
+</div>
